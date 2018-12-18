@@ -2,8 +2,6 @@
 
 ![Leveris logo](https://res-5.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_120,w_120,f_auto,b_white,q_auto:eco/v1460129189/ctlloub15lbsya2mxwtv.png)
 
-This is documentation of the services of LDB onboarding process.
-There are some rules that are valid throughout whole API.
 
 ## LDB intro (header TBD)
 Leveris Digital Bank (LDB) is advanced core banking platform in the market. Modern, modular, non-legacy banking system architected to address the key challenges banks face today. Featuring:
