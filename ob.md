@@ -59,39 +59,7 @@ In order for client to know how to continue with the onboarding process, the pro
 - parameter options, return codes, and complete API description to be find here [link]()
 - all steps of the process definition are to be find here [link]()
 
-
-## WIP
-In case all the predefined requirements of current step are met, process is pushed to the next step by calling `!execute` api:
-```
-path/path/!execute
-```
-- requests X
-- returns Y
-- link to complete API description
-
-
-
-there are ## steps
-Pomoci basic info do systemu dostaneme zakladni neoverene udaje
-nasleduje overovani
-k tomu je potreba... atd
-
-Example request:
-```
-curl -X GET https://api.airbank.cz/openapi/banking/v1/transactions?sort=category&limit=10&after=15
-```
-
-Example response pagingInfo:
-
-```javascript
-"pagingInfo": {
-    "nextPage": "transactions?sort=category&limit=10&after=25"
-    "itemsPerPage": 10,
-}
-```
-
-
-## API description TBD
+## Start process API description
 
 
 ### /processes/!startProcess
@@ -128,6 +96,38 @@ RESPONSE:
 	    Optional call identifier for easier troubleshooting (will be present only for unexpected errors).
 	-   **resource:**  _string_  
 	    The first known source of the error.
+
+
+## WIP
+In case all the predefined requirements of current step are met, process is pushed to the next step by calling `!execute` api:
+```
+path/path/!execute
+```
+- requests X
+- returns Y
+- link to complete API description
+
+
+
+there are ## steps
+Pomoci basic info do systemu dostaneme zakladni neoverene udaje
+nasleduje overovani
+k tomu je potreba... atd
+
+Example request:
+```
+curl -X GET https://api.airbank.cz/openapi/banking/v1/transactions?sort=category&limit=10&after=15
+```
+
+Example response pagingInfo:
+
+```javascript
+"pagingInfo": {
+    "nextPage": "transactions?sort=category&limit=10&after=25"
+    "itemsPerPage": 10,
+}
+```
+
 
 ## Process Parameterization TBD
 ```yml
