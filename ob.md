@@ -283,7 +283,7 @@ records:
 - lorem ipsum
 - lorem ipsum
 - lorem ipsum
-- lorem ipsum (offline edit tst)
+- lorem ipsum (online edit tst)
 - lorem ipsum
 - ips
 
