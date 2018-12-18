@@ -1,4 +1,6 @@
-# Leveris Digital Bank - onboarding
+# Leveris Digital Platform
+
+![Leveris logo](https://res-5.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_120,w_120,f_auto,b_white,q_auto:eco/v1460129189/ctlloub15lbsya2mxwtv.png)
 
 This is documentation of the services of LDB onboarding process.
 There are some rules that are valid throughout whole API.
@@ -9,7 +11,11 @@ Leveris Digital Bank (LDB) is advanced core banking platform in the market. Mode
 - Service Oriented Architecture (SOA) - possible to use only services clients want
 - Open APIs - publicly available
 
-Two channels of operation are provided (WEB client and IB smartphone client) and in both cases users are required to proceed through an onboarding process in order to use the LDB application.
+There are some general information that are valid throughout whole API documentation.
+< General info place >
+<  General info place />
+
+Two channels are supported - WEB, and MOBILE and in both cases users are required to proceed through an onboarding process in order to use the LDB application.
 
 ## Onboarding (header TBD)
 - introduces new users to the application, collects their personal data, confirms the identity
@@ -17,7 +23,6 @@ Two channels of operation are provided (WEB client and IB smartphone client) and
 - these steps are configurable by defined process parametrisation [link]()
 - customer is free to set up their own FE design and appearance but the client definition must be met for every step
 
-### Onboarding process
 To start the Onboarding process a specific api is called:
 ```
 /api/private/process/processes/!startProcess
