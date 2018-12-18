@@ -47,18 +47,6 @@ Response:
 }
 ```
 
----
-
-In order for client to know how to continue with the onboarding process, the process ID is used for next api call:
-
-```
-/api/private/process/processes/{idProcess}/!getDefinitionByProcessId
-```
-- uses `idProcess` parameter
-- based on the process id retrieves valid process definition using parameter `steps` (list of steps for this process) and `processCode` (unique code of process definition, like "ONBOARDING" for example)
-- parameter options, return codes, and complete API description to be find here [link]()
-- all steps of the process definition are to be find here [link]()
-
 ### /processes/!startProcess API description
 DESCRIPTION:
 Starts new process based on the channel and process code parameters
@@ -93,6 +81,18 @@ RESPONSE:
 	    Optional call identifier for easier troubleshooting (will be present only for unexpected errors).
 	-   **resource:**  _string_  
 	    The first known source of the error.
+
+---
+
+In order for client to know how to continue with the onboarding process, the process ID is used for next api call:
+
+```
+/api/private/process/processes/{idProcess}/!getDefinitionByProcessId
+```
+- uses `idProcess` parameter
+- based on the process id retrieves valid process definition using parameter `steps` (list of steps for this process) and `processCode` (unique code of process definition, like "ONBOARDING" for example)
+- parameter options, return codes, and complete API description to be find here [link]()
+- all steps of the process definition are to be find here [link]()
 
 
 ## WIP
