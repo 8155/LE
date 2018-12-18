@@ -1,4 +1,3 @@
-
 # Leveris Digital Bank - onboarding
 
 This is documentation of the services of LDB onboarding process.
@@ -28,19 +27,18 @@ To start the Onboarding process a specific api is called:
 - parameter options, return codes, and complete API description to be find here [link]()
 - parameters are not sent as a standard part of URL, instead an Object is created and parameters are sent as it's Payload 
 
-Example call:
+Example:
 ```
+Call:
 api/private/process/processes/!startProcess
-```
+
 Body:
-```
 {
   "channel": "WEB",
   "definitionCode": "CLIENT_ONBOARDING"
 }
-```
+
 Response:
-```
 {
 "idProcess": "123456"
 }
@@ -283,10 +281,4 @@ records:
 - lorem ipsum
 - lorem ipsum
 - lorem ipsum
-- lorem ipsum (offline edit tst)
 - lorem ipsum
-- ips
-- lore
-- 
-
-
