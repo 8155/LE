@@ -10,8 +10,8 @@ Leveris Digital Bank (LDB) is advanced core banking platform in the market. Mode
 - Open APIs - publicly available
 
 There are some general information that are valid throughout whole API documentation.
-< General info place >
-<  General info place />
+
+`{ general info }`
 
 Two channels are supported - WEB, and MOBILE and in both cases users are required to proceed through an onboarding process in order to use the LDB application.
 
