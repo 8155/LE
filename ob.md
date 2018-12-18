@@ -59,10 +59,7 @@ In order for client to know how to continue with the onboarding process, the pro
 - parameter options, return codes, and complete API description to be find here [link]()
 - all steps of the process definition are to be find here [link]()
 
-## Start process API description
-
-
-### /processes/!startProcess
+### /processes/!startProcess API description
 DESCRIPTION:
 Starts new process based on the channel and process code parameters
 
