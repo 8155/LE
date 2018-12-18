@@ -1,4 +1,4 @@
-﻿
+
 # Leveris Digital Bank - onboarding
 
 This is documentation of the services of LDB onboarding process.
@@ -283,6 +283,9 @@ records:
 - lorem ipsum
 - lorem ipsum
 - lorem ipsum
-- lorem ipsum (git online edit test)
-- lore
+- lorem ipsum
+- lorem ipsum
+
+
+
 
