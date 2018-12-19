@@ -37,15 +37,6 @@ There are three different step types recognised:
 	- e.g. Identity verification supported by Jumio 3rd party service 
 
 ## Onboarding process start
-```
-TBC: System of first ~three api documentation:
- -1- process info talk
- -2- mw api: name
- -3- description
- -4- example
- -5- definition
-...see bellow:
-```
 
 To start the Onboarding process a specific api is called:
 ```
@@ -110,7 +101,7 @@ RESPONSE:
 	    The first known source of the error.
 ---
 
-
+## Onboarding process definition
 
 In order for client to know what steps are cofigured for given onboarding process definition `getDefinitionByProcessId` is called, the process ID is used for next api call:
 ```
@@ -180,6 +171,8 @@ RESPONSE:
 - 410: Entity was not found
 - 500: Server error
 ---
+
+## Onboarding process execution
 
 In order to proceed with onboarding process step, the `execute` api must be called:
 ```
@@ -437,4 +430,13 @@ records:
             }
           ]
       }
+```
+```
+TBC: System of first ~three api documentation:
+ -1- process info talk
+ -2- mw api: name
+ -3- description
+ -4- example
+ -5- definition
+...see bellow:
 ```
