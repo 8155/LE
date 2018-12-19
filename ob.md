@@ -20,7 +20,7 @@ Two channels are supported - WEB, and MOBILE and in both cases users are require
 - consists of a set of steps new users are required to perform before being allowed into the very system
 - these steps are configurable by defined process parametrisation [link]()
 - customer is free to set up their own FE design and appearance but the client definition must be met for every step
-
+---
 To start the Onboarding process a specific api is called:
 ```
 /api/private/process/processes/!startProcess
@@ -124,6 +124,17 @@ Example response pagingInfo:
     "itemsPerPage": 10,
 }
 ```
+Note: Process resource end
+---
+## WIP BASIC INFO
+- create party and user account
+---
+## WIP Email verification
+- auth step use auth. scenatios bla
+
+---
+## WIP Passwod 
+- user account is activated so user is able to login into app
 
 
 ## Process Parameterization TBD
