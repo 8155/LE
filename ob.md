@@ -7,7 +7,7 @@
 Leveris Digital Bank (LDB) is advanced core banking platform in the market. Modern, modular, non-legacy banking system architected to address the key challenges banks face today. Featuring:
 - Modular Design - possible to replace or remove modules without affecting the others
 - Service Oriented Architecture (SOA) - possible to use only services clients want
-- Open APIs - publicly available
+- Open APIs
 
 There is some generic information valid throughout whole API documentation:
 `{ general info }`
@@ -18,7 +18,7 @@ Two channels are supported - WEB and MOBILE, and in both cases users are require
 - introduces new users to the application, collects their personal data, confirms the identity
 - consists of a set of steps new users are required to perform before being allowed into the very system
 - these steps are configurable by defined process parametrisation [link]()
-- customer is free to set up their own FE design and appearance but the client definition must be met for every step
+- you are free to set up their own FE design and appearance but the step constrains must be met for every step
 
 ## STEP types
 There are three different step types recognised:
@@ -34,7 +34,7 @@ There are three different step types recognised:
 	- custom, can be added to the parametrisation optionally
 	- can be wildly configured, inner logic is fully programmable
 	- can be tailored for external partners or any specific service use
-	- e.g. jumio 
+	- e.g. Identity verification supported by Jumio 3rd party service 
 
 ## Onboarding process start
 ```
@@ -52,9 +52,6 @@ To start the Onboarding process a specific api is called:
 /api/private/process/processes/!startProcess
 ```
 
-
-
-### MW API: !startProcess
 - starts new process using `channel` and `definitionCode` parameters
 - returns unique identification of started process using `idProcess` parameter
 - parameter options, return codes, and complete API description to be find here [link]()
@@ -115,14 +112,14 @@ RESPONSE:
 
 
 
-In order for client to know how to continue with the onboarding process, the process ID is used for next api call:
+In order for client to know what steps are cofigured for given onboarding process definition `getDefinitionByProcessId` is called, the process ID is used for next api call:
 ```
 /api/private/process/processes/{idProcess}/!getDefinitionByProcessId
 ```
 
-### MW API: !getDefinitionByProcessId
 - uses `idProcess` parameter
-- based on the process id retrieves valid process definition using parameter `steps` (list of steps for this process) and `processCode` (unique code of process definition, like "ONBOARDING" for example)
+- based on the process id retrieves valid process definition using configured `steps` (list of steps for this process) and `processCode` (unique code of process definition, like "ONBOARDING" for example)
+-- It can be used for example for showing progress of process.
 - parameter options, return codes, and complete API description to be find here [link]()
 - all steps of the process definition are to be find here [link]()
 
@@ -158,7 +155,6 @@ Response:
 ```
 
 
-
 #### API definition: /processes/{idProcess}/!getDefinitionByProcessId
 
 DESCRIPTION:
@@ -185,11 +181,9 @@ RESPONSE:
 - 500: Server error
 ---
 
-In order to proceed with onboarding, the !execute api must be called (TBC if really *must* here):
+In order to proceed with onboarding process step, the `execute` api must be called:
 ```
 ```
-
-### MW API !execute
 - lorem ipsum
 - ipsum lorem
 - lorem ipsum
@@ -444,9 +438,3 @@ records:
           ]
       }
 ```
-
-## Generic rules and information
-- lorem ipsum
-- lorem ipsum
-- lorem ipsum
-- lorem ipsum
