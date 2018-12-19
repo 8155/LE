@@ -9,22 +9,52 @@ Leveris Digital Bank (LDB) is advanced core banking platform in the market. Mode
 - Service Oriented Architecture (SOA) - possible to use only services clients want
 - Open APIs - publicly available
 
-There are some general information that are valid throughout whole API documentation.
-
+There is some generic information valid throughout whole API documentation:
 `{ general info }`
 
-Two channels are supported - WEB, and MOBILE and in both cases users are required to proceed through an onboarding process in order to use the LDB application.
+Two channels are supported - WEB and MOBILE, and in both cases users are required to proceed through an onboarding process in order to use the LDB application.
 
-## Onboarding (header TBD)
+## Onboarding
 - introduces new users to the application, collects their personal data, confirms the identity
 - consists of a set of steps new users are required to perform before being allowed into the very system
 - these steps are configurable by defined process parametrisation [link]()
 - customer is free to set up their own FE design and appearance but the client definition must be met for every step
----
+
+## STEP types
+There are three different step types recognised:
+- StepType: "**FORM**"
+	-  generic, used for collecting and saving data
+	- e.g. collecting basic info, i.e. first name, last name, e-mail address, etc.
+	- can be configured to collect multiple data out of predefined set of types
+- StepType: "**AUTH**"
+	- generic, used for specific data verification
+	- can be configured to collect multiple data out of predefined set of types
+	- can be configured by scenarios
+- StepType: "**CUSTOM**"
+	- custom, can be added to the parametrisation optionally
+	- can be wildly configured, inner logic is fully programmable
+	- can be tailored for external partners or any specific service use
+	- e.g. jumio 
+
+## Onboarding process start
+```
+TBC: System of first ~three api documentation:
+ -1- process info talk
+ -2- mw api: name
+ -3- description
+ -4- example
+ -5- definition
+...see bellow:
+```
+
 To start the Onboarding process a specific api is called:
 ```
 /api/private/process/processes/!startProcess
 ```
+
+
+
+### MW API: !startProcess
 - starts new process using `channel` and `definitionCode` parameters
 - returns unique identification of started process using `idProcess` parameter
 - parameter options, return codes, and complete API description to be find here [link]()
@@ -47,7 +77,7 @@ Response:
 }
 ```
 
-### /processes/!startProcess API description
+#### API definition: /processes/!startProcess
 DESCRIPTION:
 Starts new process based on the channel and process code parameters
 
@@ -81,21 +111,145 @@ RESPONSE:
 	    Optional call identifier for easier troubleshooting (will be present only for unexpected errors).
 	-   **resource:**  _string_  
 	    The first known source of the error.
-
 ---
 
-In order for client to know how to continue with the onboarding process, the process ID is used for next api call:
 
+
+In order for client to know how to continue with the onboarding process, the process ID is used for next api call:
 ```
 /api/private/process/processes/{idProcess}/!getDefinitionByProcessId
 ```
+
+### MW API: !getDefinitionByProcessId
 - uses `idProcess` parameter
 - based on the process id retrieves valid process definition using parameter `steps` (list of steps for this process) and `processCode` (unique code of process definition, like "ONBOARDING" for example)
 - parameter options, return codes, and complete API description to be find here [link]()
 - all steps of the process definition are to be find here [link]()
 
+Example:
+```
+Call:
+api/private/processes/{idProcess}/!getDefinitionByProcessIdlorem ipsum
 
-## WIP
+Body:
+{
+  "idProcess" : "12345"
+} 
+
+Response:
+{
+  "processCode" : "CLIENT_ONBOARDING"
+  "steps" : ""  //TBC tento example (v dobe psani servery nebezi, psano z hlavy)
+	0: {code: "BASIC_INFO", description: "Basic information"}
+	1: {code: "BASIC_INFO_COUNTRY", description: "Residency"}
+	2: {code: "VERIFY_EMAIL", description: "Verify your email"}
+	3: {code: "VERIFY_PHONE", description: "Verify your phone"}
+	4: {code: "SMS_CODE", description: "Enter the code from SMS"}
+	5: {code: "SET_PASSWORD", description: "Set your password"}
+	6: {code: "OPEN_BANK_ACC", description: "Open bank account"}
+	7: {code: "SET_DEVICE_ID", description: "Scan your finger"}
+	8: {code: "DEVICE_CREDENTIALS", description: "Save device credentials and obtain on-device secret"}
+	9: {code: "IDV_JUMIO", description: "Identity document verification"}
+	10: {code: "JUMIO_POA", description: "Address extraction"}
+	11: {code: "TAC", description: "Terms & Conditions"}
+	12: {code: "ADDRESS_APPROVAL", description: "Address approval"}
+	13: {code: "KYC", description: "KYC"}
+}
+```
+
+
+
+#### API definition: /processes/{idProcess}/!getDefinitionByProcessId
+
+DESCRIPTION:
+Retrieves valid process definition based on the process id
+
+REQUEST:
+-  URI Parameters:
+	- **idProcess:**  _string_ _(required)_  | maxLength: 100
+	Process identification
+
+RESPONSE:
+- 200: StepResult.FINISH if no next step is needed
+	-  Body: StepResult.FINISH if no next step is needed
+		- **Media type**: application/json
+		 **Type**:  _object ProcessDefinitionResponse_
+	- Object properties:
+	    -   **steps:**  _array of_  _ProcessStep_  _(required)_  
+	        list of steps for this process
+	        
+	    -   **processCode:**  _string_ _(required)_  | maxLength: 100  
+	        Unique code of process definition like ONBOARDING
+- 400: API entry validation error
+- 410: Entity was not found
+- 500: Server error
+---
+
+In order to proceed with onboarding, the !execute api must be called (TBC if really *must* here):
+```
+```
+
+### MW API !execute
+- lorem ipsum
+- ipsum lorem
+- lorem ipsum
+
+Example: (TBC, pouzito jen copy predchoziho prikladu, wrong one, servery v dobe psani uz nebezely)
+```
+Call:
+api/private/process/processes/!execute
+
+Body:
+{
+  "channel": "WEB",
+  "definitionCode": "CLIENT_ONBOARDING"
+}
+
+Response:
+{
+"idProcess": "123456"
+}
+```
+
+#### API definition: /processes/!execute
+DESCRIPTION:
+lorem ipsum
+
+REQUEST:
+- Body:
+	- lorem ipsum
+	- lorem ipsum
+- Object properties:
+	- lorem ipsum
+	lorem ipsum
+	- lorem ipsum
+	lorem ipsum
+
+
+RESPONSE:
+- 200: lorem ipsum
+	- Body:
+		- **Media type**: lorem ipsum
+		- **Type**:  _lorem ipsum_
+	- Object properties:
+		- **idProcess:** lorem ipsum
+		Unique identification of process.
+- 400: API entry validation error
+	- Body:
+		- **Media type**: lorem ipsum
+		- **Type**:  lorem ipsum
+	- Object properties:
+	- **errors:**  _any_ 
+        List of errors. Empty in case of unexpected or infrastructure errors.
+	-   **idCall:**  _string_  
+	    Optional call identifier for easier troubleshooting (will be present only for unexpected errors).
+	-   **resource:**  _string_  
+	    The first known source of the error.
+
+
+To be continued in similar manner...
+
+## WiP (work in progress - notes, remarks and parts to be used or tweaked)
 In case all the predefined requirements of current step are met, process is pushed to the next step by calling `!execute` api:
 ```
 path/path/!execute
@@ -135,9 +289,9 @@ Note: Process resource end
 ---
 ## Setup user account credentals
 - to set up user creadential you need to choose which creadentails your user will use to make a login to application.
-- The process can consits one or more credential types enrollment which can be `PASSWORD` or `FINGERPRINT`
-- In onboarding process there can be more credentials enrollment steps so you have to decide in which enrollment you would like to activate user account so that user can make a login into system. see congiguration 
+- The process can consits one or more credential types enrollment which can be PASSWORD
 
+- user account is activated so user is able to login into app
 
 
 ## Sample of onboarding process parameterization for new clients
