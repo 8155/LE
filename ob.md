@@ -135,9 +135,9 @@ Note: Process resource end
 ---
 ## Setup user account credentals
 - to set up user creadential you need to choose which creadentails your user will use to make a login to application.
-- The process can consits one or more credential types enrollment which can be PASSWORD
+- The process can consits one or more credential types enrollment which can be `PASSWORD` or `FINGERPRINT`
+- In onboarding process there can be more credentials enrollment steps so you have to decide in which enrollment you would like to activate user account so that user can make a login into system. see congiguration 
 
-- user account is activated so user is able to login into app
 
 
 ## Sample of onboarding process parameterization for new clients
