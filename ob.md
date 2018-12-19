@@ -133,11 +133,14 @@ Note: Process resource end
 - auth step use auth. scenatios bla
 
 ---
-## WIP Passwod 
+## Setup user account credentals
+- to set up user creadential you need to choose which creadentails your user will use to make a login to application.
+- The process can consits one or more credential types enrollment which can be PASSWORD
+
 - user account is activated so user is able to login into app
 
 
-## Process Parameterization TBD
+## Sample of onboarding process parameterization for new clients
 ```yml
 api: "{be-del-user-activation}/user-activation/processes/definition/!param"
 method: "post"
