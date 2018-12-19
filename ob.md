@@ -3,7 +3,7 @@
 ![Leveris logo](https://res-5.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_120,w_120,f_auto,b_white,q_auto:eco/v1460129189/ctlloub15lbsya2mxwtv.png)
 
 
-## LDB intro (header TBD)
+## LDB intro
 Leveris Digital Bank (LDB) is advanced core banking platform in the market. Modern, modular, non-legacy banking system architected to address the key challenges banks face today. Featuring:
 - Modular Design - possible to replace or remove modules without affecting the others
 - Service Oriented Architecture (SOA) - possible to use only services clients want
@@ -233,52 +233,6 @@ RESPONSE:
 	-   **resource:**  _string_  
 	    The first known source of the error.
 
-
-To be continued in similar manner...
-
-## WiP (work in progress - notes, remarks and parts to be used or tweaked)
-In case all the predefined requirements of current step are met, process is pushed to the next step by calling `!execute` api:
-```
-path/path/!execute
-```
-- requests X
-- returns Y
-- link to complete API description
-
-
-
-there are ## steps
-Pomoci basic info do systemu dostaneme zakladni neoverene udaje
-nasleduje overovani
-k tomu je potreba... atd
-
-Example request:
-```
-curl -X GET https://api.airbank.cz/openapi/banking/v1/transactions?sort=category&limit=10&after=15
-```
-
-Example response pagingInfo:
-
-```javascript
-"pagingInfo": {
-    "nextPage": "transactions?sort=category&limit=10&after=25"
-    "itemsPerPage": 10,
-}
-```
-Note: Process resource end
----
-## WIP BASIC INFO
-- create party and user account
----
-## WIP Email verification
-- auth step use auth. scenatios bla
-
----
-## Setup user account credentals
-- to set up user creadential you need to choose which creadentails your user will use to make a login to application.
-- The process can consits one or more credential types enrollment which can be PASSWORD
-
-- user account is activated so user is able to login into app
 
 
 ## Sample of onboarding process parameterization for new clients
