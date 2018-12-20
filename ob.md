@@ -1,3 +1,4 @@
+
 # Leveris Digital Platform
 
 ![Leveris logo](https://res-5.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_120,w_120,f_auto,b_white,q_auto:eco/v1460129189/ctlloub15lbsya2mxwtv.png)
@@ -127,7 +128,7 @@ Body:
 Response:
 {
   "processCode" : "CLIENT_ONBOARDING"
-  "steps" : ""  //TBC tento example (v dobe psani servery nebezi, psano z hlavy)
+  "steps" : ""  //TBC
 	0: {code: "BASIC_INFO", description: "Basic information"}
 	1: {code: "BASIC_INFO_COUNTRY", description: "Residency"}
 	2: {code: "VERIFY_EMAIL", description: "Verify your email"}
@@ -176,62 +177,63 @@ RESPONSE:
 
 In order to proceed with onboarding process step, the `execute` api must be called:
 ```
+/api/private/process/processes/{idProcess}/steps/!execute
 ```
-- lorem ipsum
-- ipsum lorem
-- lorem ipsum
+- `!execute` can be called when all the required actions of the currents step are met
+- is called to push the entire process to the next step defined
+- uses `idProcess`,  `mediaType`, and `party` parameters to get the `status` and `nextStep` in response
 
-Example: (TBC, pouzito jen copy predchoziho prikladu, wrong one, servery v dobe psani uz nebezely)
-```
-Call:
-api/private/process/processes/!execute
-
-Body:
-{
-  "channel": "WEB",
-  "definitionCode": "CLIENT_ONBOARDING"
-}
-
-Response:
-{
-"idProcess": "123456"
-}
-```
 
 #### API definition: /processes/!execute
 DESCRIPTION:
-lorem ipsum
+
+ - StepResult.FINISH if no next step is needed
 
 REQUEST:
-- Body:
-	- lorem ipsum
-	- lorem ipsum
-- Object properties:
-	- lorem ipsum
-	lorem ipsum
-	- lorem ipsum
-	lorem ipsum
-
+-   URI Parameters
+	- **idProcess:**  _string_ _(required)_  | maxLength: 100
+	Process identification
+- Body
+	- **Media type**: application/json
+	-  **Type**:  _object StepExecutionRequest_
+-  Object properties:
+	-  **party:**  _object_  _processPartyTypes.Party_
 
 RESPONSE:
-- 200: lorem ipsum
-	- Body:
-		- **Media type**: lorem ipsum
-		- **Type**:  _lorem ipsum_
-	- Object properties:
-		- **idProcess:** lorem ipsum
-		Unique identification of process.
-- 400: API entry validation error
-	- Body:
-		- **Media type**: lorem ipsum
-		- **Type**:  lorem ipsum
-	- Object properties:
-	- **errors:**  _any_ 
-        List of errors. Empty in case of unexpected or infrastructure errors.
-	-   **idCall:**  _string_  
-	    Optional call identifier for easier troubleshooting (will be present only for unexpected errors).
-	-   **resource:**  _string_  
-	    The first known source of the error.
+- Body
+	- **Media type:** application/json
+	- **Type:** object StepExecutionResponse
+- Object properties:
+	- **status:** string one of "NEW", "PENDING", "DONE", "FAILED" (required)
+NEW - Process is created, but any step has not been accomplish yet | PENDING - Process is valid, at least one step has been already accomplish but whole process has not finished yet | DONE - Process is in termination status and process finish successfully | FAILED - Process is in termination status and proces finish unsucessfully
+- **nextStep**: object userProcessTypes.ProcessStep
+Return definition of next step if status PENDING. IF DONE or FAIL then return nothing
+
+	Example:
+	```
+	{
+	  "code": "BASIC_INFO_STEP",
+	  "stepType": "FORM",
+	  "private": false,
+	  "label": "Register",
+	  "formProperties": [
+	     {
+	       "fieldName": "party.individualName.firstName",
+	       "mandatory": false
+	     },
+	     {
+	       "fieldName": "party.individualName.surName",
+	       "mandatory": true
+	     }
+	   ]
+	}
+	```
+-	**tokens:** object authTypes.LoginTokens (required)
+JWT token for acctivation
+
+---
+
+
 
 
 
@@ -386,11 +388,10 @@ records:
       }
 ```
 ```
-TBC: System of first ~three api documentation:
+TBC: System of documentation:
  -1- process info talk
  -2- mw api: name
  -3- description
  -4- example
  -5- definition
-...see bellow:
 ```
