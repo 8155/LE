@@ -47,7 +47,7 @@ To start the Onboarding process a specific api is called:
 - starts new process using `channel` and `definitionCode` parameters
 - returns unique identification of started process using `idProcess` parameter
 - parameter options, return codes, and complete API description to be find here [link]()
-- parameters are not sent as a standard part of URL, instead an Object is created and parameters are sent as it's Payload 
+- parameters are not sent as a part of URL (URII params), instead an Object is created and parameters are sent as a payload within its body properties
 
 Example:
 ```
@@ -80,7 +80,6 @@ REQUEST:
 	- **channel:**  _string_ _(required)_  | maxLength: 100
 	Identification of the channel used for onboarding
 
-
 RESPONSE:
 - 200: Return new instance of process
 	- Body:
@@ -104,47 +103,48 @@ RESPONSE:
 
 ## Onboarding process definition
 
-In order for client to know what steps are cofigured for given onboarding process definition `getDefinitionByProcessId` is called, the process ID is used for next api call:
+In order for client to know what steps are configured for given onboarding process definition a `getDefinitionByProcessId` is called:
 ```
 /api/private/process/processes/{idProcess}/!getDefinitionByProcessId
 ```
 
 - uses `idProcess` parameter
-- based on the process id retrieves valid process definition using configured `steps` (list of steps for this process) and `processCode` (unique code of process definition, like "ONBOARDING" for example)
--- It can be used for example for showing progress of process.
-- parameter options, return codes, and complete API description to be find here [link]()
-- all steps of the process definition are to be find here [link]()
+- retrieves valid process definition using configured `steps` (list of steps for this process) and `processCode` (unique code of process definition, e.g. "ONBOARDING"), based on `idProcess` parameter returned by `!startProcess` 
+- this process definition can be used for showing progress of the ongoing process for example
+- parameter options, return codes, and complete API description to be found here [link]()
+- all steps of the process definition are to be found here [link]()
 
 Example:
 ```
 Call:
-api/private/processes/{idProcess}/!getDefinitionByProcessIdlorem ipsum
+	api/private/processes/{idProcess}/!getDefinitionByProcessIdlorem ipsum
 
 Body:
-{
-  "idProcess" : "12345"
-} 
+	{
+	  "idProcess" : "12345"
+	} 
 
 Response:
-{
-  "processCode" : "CLIENT_ONBOARDING"
-  "steps" : ""  //TBC
-	0: {code: "BASIC_INFO", description: "Basic information"}
-	1: {code: "BASIC_INFO_COUNTRY", description: "Residency"}
-	2: {code: "VERIFY_EMAIL", description: "Verify your email"}
-	3: {code: "VERIFY_PHONE", description: "Verify your phone"}
-	4: {code: "SMS_CODE", description: "Enter the code from SMS"}
-	5: {code: "SET_PASSWORD", description: "Set your password"}
-	6: {code: "OPEN_BANK_ACC", description: "Open bank account"}
-	7: {code: "SET_DEVICE_ID", description: "Scan your finger"}
-	8: {code: "DEVICE_CREDENTIALS", description: "Save device credentials and obtain on-device secret"}
-	9: {code: "IDV_JUMIO", description: "Identity document verification"}
-	10: {code: "JUMIO_POA", description: "Address extraction"}
-	11: {code: "TAC", description: "Terms & Conditions"}
-	12: {code: "ADDRESS_APPROVAL", description: "Address approval"}
-	13: {code: "KYC", description: "KYC"}
-}
+	{
+	  "processCode" : "CLIENT_ONBOARDING"
+	  "steps" : ""  //TBC
+		0: {code: "BASIC_INFO", description: "Basic information"}
+		1: {code: "BASIC_INFO_COUNTRY", description: "Residency"}
+		2: {code: "VERIFY_EMAIL", description: "Verify your email"}
+		3: {code: "VERIFY_PHONE", description: "Verify your phone"}
+		4: {code: "SMS_CODE", description: "Enter the code from SMS"}
+		5: {code: "SET_PASSWORD", description: "Set your password"}
+		6: {code: "OPEN_BANK_ACC", description: "Open bank account"}
+		7: {code: "SET_DEVICE_ID", description: "Scan your finger"}
+		8: {code: "DEVICE_CREDENTIALS", description: "Save device credentials and obtain on-device secret"}
+		9: {code: "IDV_JUMIO", description: "Identity document verification"}
+		10: {code: "JUMIO_POA", description: "Address extraction"}
+		11: {code: "TAC", description: "Terms & Conditions"}
+		12: {code: "ADDRESS_APPROVAL", description: "Address approval"}
+		13: {code: "KYC", description: "KYC"}
+	}
 ```
+
 
 
 #### API definition: /processes/{idProcess}/!getDefinitionByProcessId
@@ -157,7 +157,7 @@ REQUEST:
 	- **idProcess:**  _string_ _(required)_  | maxLength: 100
 	Process identification
 
-RESPONSE:
+RESPONSE:									(TBC)
 - 200: StepResult.FINISH if no next step is needed
 	-  Body: StepResult.FINISH if no next step is needed
 		- **Media type**: application/json
@@ -175,7 +175,7 @@ RESPONSE:
 
 ## Onboarding process execution
 
-In order to proceed with onboarding process step, the `execute` api must be called:
+In order to proceed trough the onboarding process steps, the `execute` api must be called:
 ```
 /api/private/process/processes/{idProcess}/steps/!execute
 ```
@@ -185,7 +185,7 @@ In order to proceed with onboarding process step, the `execute` api must be call
 
 
 #### API definition: /processes/!execute
-DESCRIPTION:
+DESCRIPTION:   TBC
 
  - StepResult.FINISH if no next step is needed
 
@@ -230,14 +230,14 @@ Return definition of next step if status PENDING. IF DONE or FAIL then return no
 	```
 -	**tokens:** object authTypes.LoginTokens (required)
 JWT token for acctivation
-
 ---
 
 
 
 
 
-## Sample of onboarding process parameterization for new clients
+
+## Sample of the onboarding process parameterization for new clients
 ```yml
 api: "{be-del-user-activation}/user-activation/processes/definition/!param"
 method: "post"
@@ -387,6 +387,8 @@ records:
           ]
       }
 ```
+
+
 ```
 TBC: System of documentation:
  -1- process info talk
