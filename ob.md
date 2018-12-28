@@ -1,3 +1,4 @@
+"Documentation for external developers" draft file:
 
 # Leveris Digital Platform
 
@@ -114,10 +115,10 @@ In order for client to know what steps are configured for given onboarding proce
 - parameter options, return codes, and complete API description to be found here [link]()
 - all steps of the process definition are to be found here [link]()
 
-Example:
+Example: TBC
 ```
 Call:
-	api/private/processes/{idProcess}/!getDefinitionByProcessIdlorem ipsum
+	api/private/processes/12345/!getDefinitionByProcessId
 
 Body:
 	{
@@ -173,6 +174,7 @@ RESPONSE:									(TBC)
 - 500: Server error
 ---
 
+
 ## Onboarding process execution
 
 In order to proceed trough the onboarding process steps, the `execute` api must be called:
@@ -180,7 +182,7 @@ In order to proceed trough the onboarding process steps, the `execute` api must 
 /api/private/process/processes/{idProcess}/steps/!execute
 ```
 - `!execute` can be called when all the required actions of the currents step are met
-- is called to push the entire process to the next step defined
+- is called to push the entire process to the next step, which is defined by process definition (example: [link]())
 - uses `idProcess`,  `mediaType`, and `party` parameters to get the `status` and `nextStep` in response
 
 
@@ -231,7 +233,6 @@ Return definition of next step if status PENDING. IF DONE or FAIL then return no
 -	**tokens:** object authTypes.LoginTokens (required)
 JWT token for acctivation
 ---
-
 
 
 
@@ -387,10 +388,40 @@ records:
           ]
       }
 ```
+#### SECURITY
+- https, auth, tokens, etc info follows:
+- APIs are secured by tokens, and those must be sent with every API call
+- tokens can be prolonged, as described here: [link]()
+
+
+#### SAMPLE of our PROCESS by API calls  (TBC)
+```yml
+- !startProces
+- !getDefinitionbyProscessId
+- !execute
+- pwd  //from here on, user interrupt the process and later log back in by using login/pwd
+- login
+	- verify identity
+	- verify address
+	- collect data
+- end of onboarding (by KYC)
+ {
+                "businessStage": "DUE_DILIGENCE",
+                "code": "KYC",
+                "label": "KYC",
+                "private": true,
+                "stepType": "CUSTOM",
+                "backendStep": true
+            },
+```
+
+.
+
+.
 
 
 ```
-TBC: System of documentation:
+System of documentation template:
  -1- process info talk
  -2- mw api: name
  -3- description
