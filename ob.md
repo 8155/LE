@@ -234,8 +234,37 @@ Return definition of next step if status PENDING. IF DONE or FAIL then return no
 JWT token for acctivation
 ---
 
+## Onboarding process recommended steps/flow:
 
-
+- one of the entities involved and handled in the oboarding process is the Persona or Party.
+- to create a new party we need at least one `BASIC_INFO` step, where user fills in the e-mail address
+	Step example:
+	```
+	{
+                "businessStage": "REGISTRATION",
+                "code": "BASIC_INFO",
+                "formProperties": [
+                     {
+                        "fieldName": "party.individualName.firstName",
+                        "mandatory": true
+                     },
+                     {
+                        "fieldName": "party.individualName.surName",
+                        "mandatory": true
+                     },
+                     {
+                        "fieldName": "party.contacts.primaryEmail",
+                        "mandatory": true
+                     }
+    }
+    ```
+- output of this is a new entity (we call it Party) that:
+	- exists already
+	- has got the basic information on it (e.g. first name, last name, e-mail address)
+	- has got the user account created, existing and assigned
+		- such user account is not *Active* at that moment yet, since it hasn't got all the necessary credentials
+		
+  
 
 
 ## Sample of the onboarding process parameterization for new clients
