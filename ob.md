@@ -1,4 +1,4 @@
-"Documentation for external developers" draft file:
+"Documentation for external developers" draft / sample file:
 
 # Leveris Digital Platform
 
@@ -14,16 +14,16 @@ Leveris Digital Bank (LDB) is advanced core banking platform in the market. Mode
 There is some generic information valid throughout whole API documentation:
 `{ general info }`
 
-Two channels are supported - WEB and MOBILE, and in both cases users are required to proceed through an onboarding process in order to use the LDB application.
+Two channels are supported - WEB and MOBILE, and in both cases users are required to proceed through the User Activation process (aka onboarding) process in order to use the LDB application.
 
 ## Onboarding
 - introduces new users to the application, collects their personal data, confirms the identity
 - consists of a set of steps new users are required to perform before being allowed into the very system
-- these steps are configurable by defined process parametrisation [link]()
-- you are free to set up their own FE design and appearance but the step constrains must be met for every step
+- is configurable by defined process parametrisation or steps definition via .yml files [link]()
+- partners are free to set up their own FE design and appearance but the step constraints must be met for every step
 
 ## STEP types
-There are three different step types recognised:
+There are three different step types recognied:
 - StepType: "**FORM**"
 	-  generic, used for collecting and saving data
 	- e.g. collecting basic info, i.e. first name, last name, e-mail address, etc.
@@ -67,7 +67,13 @@ Response:
 }
 ```
 
-#### API definition: /processes/!startProcess
+### API definition: /processes/!startProcess
+The exact and up-to-date description can be find at
+ [https://doc.ffc.internal/api/mw-gen-user-activation-ib/Process-ib/1.0/Process-ib.raml.html](https://doc.ffc.internal/api/mw-gen-user-activation-ib/Process-ib/1.0/Process-ib.raml.html) 
+
+#### API description example:
+
+
 DESCRIPTION:
 Starts new process based on the channel and process code parameters
 
@@ -115,7 +121,7 @@ In order for client to know what steps are configured for given onboarding proce
 - parameter options, return codes, and complete API description to be found here [link]()
 - all steps of the process definition are to be found here [link]()
 
-Example: TBC
+API call example:
 ```
 Call:
 	api/private/processes/12345/!getDefinitionByProcessId
@@ -148,7 +154,13 @@ Response:
 
 
 
-#### API definition: /processes/{idProcess}/!getDefinitionByProcessId
+
+### API definition: /processes/{idProcess}/!getDefinitionByProcessId
+
+The exact and up-to-date description can be find at
+ [https://doc.ffc.internal/api/mw-gen-user-activation-ib/Process-ib/1.0/Process-ib.raml.html](https://doc.ffc.internal/api/mw-gen-user-activation-ib/Process-ib/1.0/Process-ib.raml.html) 
+
+#### Api description example:
 
 DESCRIPTION:
 Retrieves valid process definition based on the process id
@@ -267,7 +279,9 @@ JWT token for acctivation
   
 
 
-## Sample of the onboarding process parameterization for new clients
+## Onboarding process parameterization example
+- yml files structure is used
+- for new clients following process parameterization example is recommended:
 ```yml
 api: "{be-del-user-activation}/user-activation/processes/definition/!param"
 method: "post"
@@ -417,43 +431,78 @@ records:
           ]
       }
 ```
-#### SECURITY
+
+## Onboarding process API calls sequence example
+- for new clients and suggested parameterization the API calls sequence may look like this example:
+```yml
+FE action (start button)
+  !list
+  !startProcess
+  !getDefinitionByProcessId
+FE action (basic info, name, surname, e-mail, button)
+  !execute
+  !getAuthScenarioDefinition
+  !startAuthProcess
+FE action (e-mail confirmation URL)
+  !getDefinitionByProcessId
+  !getAuthScenarioDefinition
+  !validateAuthProcessStep
+  !execute
+FE action (country of residence, button)
+  !execute
+FE action (phone, button)
+  !execute
+  !getAuthScenarioDefinition
+  !startAuthProcess
+FE action (phone validation, sms, button)
+  !validateAuthProcessStep
+  !execute 
+FE action (password, button)
+  !execute
+  !searchProcesses
+  !getDefinitionByProcessId
+FE action (Verify identity button)
+  !initiateNetverifyRedirect
+FE action (POI, submit button)
+  !getDefinitionByProcessId
+  !getJumioScanStatus
+  !setScanProcessStatus
+  !execute
+FE action (POA, button)
+  !acquisitionsProcess?initiationToken=123
+  !getDefinitionByProcessId
+  !execute
+FE action (TaC, button)
+  !execute
+  !getDefinitionByProcessId
+  !searchProcesses
+  !list
+  !getDefinitionByProcessId
+  !execute
+//onboarding sample ends here, next rec. step might be !getLoginScenario or product offer for example
+```
+
+## SECURITY
 - https, auth, tokens, etc info follows:
 - APIs are secured by tokens, and those must be sent with every API call
-- tokens can be prolonged, as described here: [link]()
+- security tokens can be re-issued or prolonged, as described here: [link]()
 
-
-#### SAMPLE of our PROCESS by API calls  (TBC)
-```yml
-- !startProces
-- !getDefinitionbyProscessId
-- !execute
-- pwd  //from here on, user interrupt the process and later log back in by using login/pwd
-- login
-	- verify identity
-	- verify address
-	- collect data
-- end of onboarding (by KYC)
- {
-                "businessStage": "DUE_DILIGENCE",
-                "code": "KYC",
-                "label": "KYC",
-                "private": true,
-                "stepType": "CUSTOM",
-                "backendStep": true
-            },
-```
-
-.
-
-.
-
-
+## API description
+- list and complete description for all the API needed for the onboarding part of the process 
 ```
 System of documentation template:
- -1- process info talk
+ -1- process/business info
  -2- mw api: name
  -3- description
- -4- example
- -5- definition
+ -4- definition
+ -5- example
 ```
+## Revision list
+2018/12 - first concepts of the document
+2018/01 - creating value, adding information, work in progress
+
+---
+## Remarks
+//formats, layout, and final information structure to be polished by a member of the target audience (e.g. FE developer)
+
+
